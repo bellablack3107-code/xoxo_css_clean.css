@@ -1,0 +1,2773 @@
+/* =========================================================
+   XOXO SKIN - CSS LIMPIO PARA FOROACTIVO
+   Version base ordenada para trabajar sin parches acumulados.
+
+   Como leer este archivo:
+   1. Variables: colores, fuentes y medidas.
+   2. Base: cuerpo, enlaces, imagenes y tablas.
+   3. Estructura: contenedor general del foro.
+   4. Navegacion y cabecera.
+   5. Indice: categorias y foros.
+   6. Subforos y lista de temas.
+   7. Posts: interior de los temas.
+   8. Formularios y editor.
+   9. Mensajes privados.
+   10. Responsive: tablet y celular.
+   ========================================================= */
+
+/* =========================================================
+   1. VARIABLES
+   Aqui estan los "botecitos de pintura".
+   Cambias un color aqui y se cambia en toda la skin.
+   ========================================================= */
+
+:root {
+  --imagen-fondo: url("https://i.imgur.com/Zx61S0K.jpeg");
+  --imagen-logo: url("https://i.imgur.com/f3PkI1Y.png");
+
+  --fuente-base: Helvetica, Arial, sans-serif;
+  --fuente-titulo: Georgia, "Times New Roman", serif;
+
+  --fondo-0: #070707;
+  --fondo-1: rgba(18, 18, 18, 0.86);
+  --fondo-2: #121212;
+  --fondo-3: #0e0e0e;
+  --fondo-4: #181818;
+
+  --texto: #ededed;
+  --texto-suave: #b9b1c1;
+  --texto-mudo: #88818f;
+
+  --color-1: #ccbad9;
+  --color-2: #9187b3;
+  --color-3: #e3e3e3;
+
+  --borde: 1px solid #1c1c1c;
+  --borde-claro: 1px solid rgba(237, 237, 237, 0.38);
+  --sombra: 0 20px 50px rgba(0, 0, 0, 0.48);
+  --gradient-1: linear-gradient(180deg, #8a7099 0%, #b29dbc 50%, #d4cad9 100%);
+
+  --ancho-foro: 1280px;
+  --radio: 0;
+  --espacio: 18px;
+}
+
+/* =========================================================
+   2. BASE GENERAL
+   Esto limpia el comportamiento default del navegador.
+   ========================================================= */
+
+html {
+  box-sizing: border-box;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+body {
+  margin: 0 !important;
+  padding: 0 !important;
+  min-height: 100vh;
+  max-width: 100%;
+  overflow-x: hidden;
+  background:
+    linear-gradient(rgba(0, 0, 0, 0.16), rgba(0, 0, 0, 0.52)),
+    var(--imagen-fondo);
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  color: var(--texto);
+  font: 12px/1.45 var(--fuente-base);
+}
+
+a,
+a:link,
+a:visited {
+  color: var(--texto);
+  text-decoration: none;
+}
+
+a:hover {
+  color: var(--color-1);
+  text-decoration: none !important;
+}
+
+img,
+iframe,
+video,
+embed,
+object {
+  max-width: 100%;
+}
+
+table {
+  width: 100%;
+  max-width: 100%;
+  border-collapse: collapse;
+}
+
+ul,
+ol {
+  margin-top: 0;
+}
+
+hr {
+  border: 0;
+  border-top: var(--borde);
+}
+
+/* =========================================================
+   3. ESTRUCTURA GENERAL
+   #wrap es la caja grande que envuelve el foro.
+   ========================================================= */
+
+#wrap,
+.wrap {
+  width: min(var(--ancho-foro), calc(100vw - 24px));
+  max-width: min(var(--ancho-foro), calc(100vw - 24px));
+  margin: 0 auto 50px !important;
+  padding: 25px 0 0 !important;
+  background: var(--fondo-1);
+  border: 0 !important;
+  outline: var(--borde-claro);
+  box-shadow: var(--sombra);
+  backdrop-filter: blur(1px);
+}
+
+#page-body,
+#content-container,
+#content-container div#container,
+#content-container div#content,
+#content-container div#main,
+#main-content {
+  width: 100%;
+  max-width: 100%;
+  overflow: visible;
+}
+
+#content-container div#left,
+#content-container div#right,
+#left,
+#right {
+  display: none !important;
+}
+
+/* Limpieza de publicidad o bloques externos que suelen romper el ancho. */
+iframe[src*="googlesyndication"],
+iframe[src*="doubleclick"],
+iframe[id*="google_ads"],
+ins,
+div[id*="prebid"],
+.v-vlite,
+.v-video,
+.slm_sticky {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+  overflow: hidden !important;
+  visibility: hidden !important;
+}
+
+/* =========================================================
+   4. NAVEGACION Y CABECERA
+   ========================================================= */
+
+.navbar,
+.linklist,
+ul.linklist,
+ul.navlinks,
+#page-header ul,
+#pun-navlinks ul {
+  display: flex !important;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+  margin: 0 auto 16px !important;
+  padding: 10px !important;
+  list-style: none !important;
+  background: var(--fondo-3);
+  border: var(--borde);
+}
+
+.navbar li,
+.linklist li,
+ul.linklist li,
+ul.navlinks li,
+#page-header ul li,
+#pun-navlinks li {
+  display: block !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  list-style: none !important;
+}
+
+.navbar a,
+.linklist a,
+ul.linklist a,
+ul.navlinks a,
+#page-header ul a,
+#pun-navlinks a,
+a.mainmenu {
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+  min-height: 31px;
+  padding: 0 12px !important;
+  background: var(--fondo-2);
+  border: var(--borde);
+  color: var(--texto) !important;
+  font-size: 9px;
+  font-weight: 900;
+  letter-spacing: 1px;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.navbar a:hover,
+.linklist a:hover,
+ul.linklist a:hover,
+ul.navlinks a:hover,
+#page-header ul a:hover,
+#pun-navlinks a:hover,
+a.mainmenu:hover {
+  border-color: var(--color-1);
+  color: var(--color-1) !important;
+}
+
+a.mainmenu img,
+.navbar img,
+.linklist img {
+  width: 14px;
+  height: 14px;
+  object-fit: contain;
+  margin-right: 5px;
+}
+
+.newlogo,
+.headerbar,
+#logo-desc,
+#pun-title {
+  width: 100%;
+  min-height: 460px;
+  margin: 0 auto 30px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background: var(--imagen-logo);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  border-bottom: var(--borde);
+}
+
+.newlogo::before,
+.headerbar::before,
+#logo-desc::before,
+#pun-title::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.22);
+  pointer-events: none;
+}
+
+.titulo-foro,
+.headerbar h1,
+#logo-desc h1,
+#pun-title h1 {
+  position: relative;
+  z-index: 1;
+  margin: 0;
+  max-width: calc(100% - 32px);
+  text-align: center;
+  color: transparent !important;
+  background: var(--gradient-1);
+  -webkit-background-clip: text;
+  background-clip: text;
+  font-family: var(--fuente-titulo);
+  font-size: clamp(52px, 9vw, 110px);
+  font-weight: 900;
+  line-height: 0.88;
+  text-transform: uppercase;
+}
+
+/* =========================================================
+   4B. TABLON SUPERIOR XOXO
+   Este bloque da forma al panel grande que vive en overall_header.
+   ========================================================= */
+
+.ms-tablon,
+.ms-tablon * {
+  box-sizing: border-box;
+}
+
+.ms-tablon {
+  width: 100%;
+  margin: 0 auto 32px;
+  position: relative;
+  overflow: hidden;
+  background: var(--fondo-2);
+  border-top: var(--borde);
+  border-bottom: var(--borde);
+}
+
+.ms-card {
+  position: relative;
+  overflow: hidden;
+  background: var(--fondo-3);
+  border: var(--borde);
+}
+
+.ms-card-title {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.ms-card-title b {
+  color: var(--color-1);
+  font-family: var(--fuente-titulo);
+  font-size: 18px;
+  font-weight: 900;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.ms-card-title i {
+  color: var(--texto-mudo);
+  font-style: normal;
+  font-size: 9px;
+  font-weight: 900;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.ms-top {
+  display: grid;
+  grid-template-columns: 290px minmax(0, 1fr) 90px;
+  border-bottom: var(--borde);
+  background: var(--fondo-3);
+}
+
+.ms-brand {
+  min-width: 0;
+  padding: 16px 18px;
+  display: grid;
+  grid-template-columns: 42px minmax(0, 1fr);
+  gap: 12px;
+  align-items: center;
+  border-right: var(--borde);
+}
+
+.ms-brand-mark {
+  width: 42px;
+  height: 42px;
+  display: grid;
+  place-items: center;
+  background: var(--gradient-1);
+  color: var(--fondo-3);
+  font-size: 24px;
+  font-weight: 900;
+}
+
+.ms-brand-text strong,
+.ms-brand-text span {
+  display: block;
+}
+
+.ms-brand-text strong {
+  color: var(--texto);
+  font-family: var(--fuente-titulo);
+  font-size: 24px;
+  line-height: 1;
+}
+
+.ms-brand-text span {
+  color: var(--texto-mudo);
+  font-size: 9px;
+  font-weight: 900;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.ms-nav {
+  min-width: 0;
+  padding: 14px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  align-items: center;
+  justify-content: center;
+}
+
+.ms-nav a {
+  min-height: 29px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 12px;
+  background: var(--fondo-2);
+  border: var(--borde);
+  color: var(--texto) !important;
+  font-size: 9px;
+  font-weight: 900;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.ms-nav a:hover {
+  border-color: var(--color-1);
+  color: var(--color-1) !important;
+}
+
+.ms-access-mini {
+  min-width: 0;
+  border-left: var(--borde);
+}
+
+.ms-body {
+  display: grid;
+  grid-template-columns: 260px minmax(0, 1fr) 280px;
+  min-height: 460px;
+}
+
+.ms-left,
+.ms-right {
+  min-width: 0;
+  background: var(--fondo-3);
+}
+
+.ms-left {
+  border-right: var(--borde);
+}
+
+.ms-right {
+  border-left: var(--borde);
+}
+
+.ms-center {
+  min-width: 0;
+  display: grid;
+  grid-template-rows: minmax(260px, auto) 220px;
+}
+
+.ms-latest,
+.ms-calendar,
+.ms-staff,
+.ms-searches,
+.ms-mini-card {
+  height: 100%;
+  padding: 18px;
+  border: 0;
+}
+
+.ms-last-head,
+.ms-calendar-head {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 10px;
+  align-items: center;
+  margin-bottom: 14px;
+}
+
+.ms-last-count,
+.ms-calendar-head button {
+  width: 30px;
+  height: 30px;
+  display: grid;
+  place-items: center;
+  background: var(--fondo-2);
+  border: var(--borde);
+  color: var(--color-1);
+  font-weight: 900;
+}
+
+.ms-plot {
+  display: grid;
+  grid-template-columns: 240px minmax(0, 1fr);
+  border-bottom: var(--borde);
+}
+
+.ms-plot-img {
+  position: relative;
+  min-height: 260px;
+  overflow: hidden;
+  border-right: var(--borde);
+}
+
+.ms-plot-img img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  filter: grayscale(1) contrast(1.05);
+  opacity: 0.62;
+}
+
+.ms-season-box {
+  position: absolute;
+  left: 14px;
+  right: 14px;
+  bottom: 14px;
+  padding: 12px;
+  background: rgba(14, 14, 14, 0.86);
+  border: var(--borde);
+  text-align: center;
+}
+
+.ms-season-box b,
+.ms-season-box span {
+  display: block;
+}
+
+.ms-season-box b {
+  color: var(--color-1);
+  font-size: 12px;
+  text-transform: uppercase;
+}
+
+.ms-season-box span {
+  color: var(--texto-mudo);
+  font-size: 9px;
+  font-weight: 900;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.ms-plot-text {
+  min-width: 0;
+  padding: 22px 24px;
+  display: grid;
+  align-content: center;
+}
+
+.ms-plot-kicker {
+  color: var(--texto-mudo);
+  font-size: 9px;
+  font-weight: 900;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.ms-plot-title {
+  margin: 6px 0 14px;
+  color: var(--color-1);
+  font-family: var(--fuente-titulo);
+  font-size: 36px;
+  font-weight: 900;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.ms-plot-copy {
+  max-height: 150px;
+  overflow: auto;
+  color: var(--texto);
+  font-size: 11px;
+  line-height: 1.55;
+  text-align: justify;
+}
+
+.ms-center-bottom {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 220px;
+}
+
+.ms-searches {
+  border-right: var(--borde);
+}
+
+.ms-search-slider {
+  height: 150px;
+  margin-top: 14px;
+  display: grid;
+  grid-template-columns: 30px minmax(0, 1fr) 30px;
+  gap: 10px;
+  align-items: stretch;
+}
+
+.ms-search-btn {
+  min-height: 0;
+  padding: 0;
+}
+
+.ms-search-stage {
+  position: relative;
+  overflow: hidden;
+  background: var(--fondo-2);
+  border: var(--borde);
+}
+
+.ms-search-card {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.25s ease;
+}
+
+.ms-search-card.is-active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.ms-search-card img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  filter: grayscale(1);
+  opacity: 0.45;
+}
+
+.ms-search-info {
+  position: absolute;
+  left: 14px;
+  right: 14px;
+  bottom: 14px;
+}
+
+.ms-search-info b,
+.ms-search-info a {
+  display: block;
+}
+
+.ms-search-info b {
+  color: var(--texto);
+  font-size: 14px;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.ms-search-info a,
+.ms-mini-card a {
+  width: fit-content;
+  margin-top: 8px;
+  padding: 7px 10px;
+  background: var(--fondo-3);
+  border: var(--borde);
+  color: var(--texto) !important;
+  font-size: 9px;
+  font-weight: 900;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.ms-mini-card {
+  display: grid;
+  align-content: center;
+  gap: 10px;
+}
+
+.ms-mini-card p {
+  margin: 0;
+  color: var(--texto-suave);
+  line-height: 1.5;
+}
+
+.ms-calendar-head {
+  grid-template-columns: 30px minmax(0, 1fr) 30px;
+}
+
+.ms-month {
+  color: var(--color-1);
+  font-size: 11px;
+  font-weight: 900;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.ms-days {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 4px;
+}
+
+.ms-days b,
+.ms-days span {
+  min-height: 25px;
+  display: grid;
+  place-items: center;
+  background: var(--fondo-2);
+  border: var(--borde);
+  color: var(--texto-mudo);
+  font-size: 9px;
+  font-weight: 900;
+}
+
+.ms-days b {
+  color: var(--color-1);
+}
+
+.ms-staff-grid {
+  margin-top: 14px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+
+.ms-staff-grid a {
+  position: relative;
+  min-height: 92px;
+  overflow: hidden;
+  display: grid;
+  place-items: end center;
+  padding: 8px;
+  background: var(--fondo-2);
+  border: var(--borde);
+}
+
+.ms-staff-grid img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: grayscale(1);
+  opacity: 0.54;
+}
+
+.ms-staff-grid span {
+  position: relative;
+  z-index: 1;
+  color: var(--texto);
+  font-size: 9px;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.ms-bottom {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  border-top: var(--borde);
+  background: var(--fondo-3);
+}
+
+.ms-bottom-box {
+  min-width: 0;
+  padding: 16px 18px;
+  display: grid;
+  grid-template-columns: 62px minmax(0, 1fr);
+  gap: 12px;
+  align-items: center;
+  border-right: var(--borde);
+}
+
+.ms-bottom-box:last-child {
+  border-right: 0;
+}
+
+.ms-bottom-icon {
+  width: 62px;
+  height: 62px;
+  display: grid;
+  place-items: center;
+  background: var(--fondo-2);
+  border: var(--borde);
+  color: var(--color-1);
+  font-size: 16px;
+  font-weight: 900;
+}
+
+.ms-bottom-text {
+  min-width: 0;
+}
+
+.ms-bottom-text b,
+.ms-bottom-text span {
+  display: block;
+}
+
+.ms-bottom-text b {
+  color: var(--texto);
+  font-size: 11px;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.ms-bottom-text span {
+  color: var(--texto-mudo);
+  font-size: 10px;
+  line-height: 1.35;
+}
+
+/* =========================================================
+   5. INDICE: CATEGORIAS Y FOROS
+   Estas clases coinciden con la estructura XOXO existente.
+   ========================================================= */
+
+.forabg,
+.forabg .inner,
+ul.topiclist,
+ul.topiclist.forums {
+  margin: 0 !important;
+  padding: 0 !important;
+  background: transparent !important;
+  border: 0 !important;
+  list-style: none !important;
+}
+
+.forabg {
+  width: 100%;
+  margin: 0 auto 45px !important;
+}
+
+.categoria {
+  min-height: 115px;
+  margin: 0 0 18px;
+  padding: 0 28px;
+  display: flex;
+  align-items: center;
+  gap: 22px;
+  position: relative;
+  overflow: hidden;
+  background: var(--gradient-1);
+  border: var(--borde);
+}
+
+.categoria::before {
+  content: "";
+  width: 62px;
+  height: 62px;
+  flex: 0 0 62px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.86);
+}
+
+.categoria::after {
+  content: "*";
+  position: absolute;
+  left: 50px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--color-2);
+  font-size: 34px;
+  font-weight: 900;
+  line-height: 1;
+}
+
+.categoria h2,
+.categoria h2 a {
+  margin: 0;
+  color: var(--texto) !important;
+  font-family: var(--fuente-titulo);
+  font-size: clamp(32px, 5vw, 48px);
+  font-weight: 900;
+  line-height: 0.95;
+  text-transform: uppercase;
+}
+
+.foro-index {
+  min-height: 245px;
+  margin: 0 0 18px;
+  display: grid;
+  grid-template-columns: 355px minmax(0, 1fr) 280px;
+  position: relative;
+  overflow: hidden;
+  background: var(--fondo-2);
+  border: var(--borde);
+}
+
+.foro-index::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto;
+  height: 4px;
+  background: var(--gradient-1);
+  z-index: 2;
+}
+
+.foro-left {
+  min-width: 0;
+  position: relative;
+  overflow: hidden;
+  background: var(--fondo-3);
+  border-right: var(--borde);
+}
+
+.foro-cover {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+.foro-cover::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(90deg, rgba(14, 14, 14, 0.08), rgba(14, 14, 14, 0.72));
+}
+
+.foro-cover::after {
+  content: "";
+  position: absolute;
+  inset: 18px;
+  z-index: 2;
+  border: var(--borde-claro);
+  opacity: 0.34;
+}
+
+.foro-cover-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  background-position: center !important;
+  background-repeat: no-repeat !important;
+  background-size: cover !important;
+  filter: grayscale(1) contrast(1.06);
+  opacity: 0.48;
+}
+
+.foro-middle {
+  min-width: 0;
+  padding: 24px 24px 20px;
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr) auto;
+  overflow: hidden;
+}
+
+.foro-name {
+  padding-bottom: 14px;
+  border-bottom: var(--borde);
+}
+
+.foro-name a {
+  display: block;
+  max-width: 100%;
+  color: var(--color-3) !important;
+  font-family: var(--fuente-titulo);
+  font-size: clamp(28px, 4vw, 38px);
+  font-weight: 900;
+  line-height: 0.94;
+  text-transform: uppercase;
+  overflow-wrap: anywhere;
+}
+
+.foro-desc {
+  min-height: 0;
+  padding: 15px 8px 15px 0;
+  overflow: auto;
+  color: var(--texto);
+  font-size: 13px;
+  line-height: 1.5;
+  text-align: justify;
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-1) transparent;
+}
+
+.foro-desc img,
+.foro-desc > img,
+.foro-desc a img,
+.foro-desc .forum-desc-img,
+.foro-desc .forum-image {
+  display: none !important;
+}
+
+.foro-desc b,
+.fdesc-text b {
+  color: var(--color-1);
+  font-weight: 900;
+}
+
+.foro-desc i,
+.fdesc-text i {
+  color: var(--color-2);
+}
+
+.fdesc-note {
+  display: block;
+  margin-top: 10px;
+  padding: 10px 12px;
+  background: var(--fondo-3);
+  border: var(--borde);
+  color: var(--texto);
+  font-size: 10px;
+  font-weight: 800;
+  line-height: 1.3;
+  text-transform: uppercase;
+}
+
+.fdesc-note::before {
+  content: "*";
+  margin-right: 7px;
+  color: var(--color-1);
+}
+
+.fdesc-links,
+.foro-subforums {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  align-items: flex-end;
+  margin-top: 12px;
+}
+
+.fdesc-links a,
+.foro-subforums a {
+  min-height: 28px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 12px;
+  background: var(--fondo-3);
+  border: var(--borde);
+  color: var(--texto) !important;
+  font-size: 9px;
+  font-weight: 900;
+  letter-spacing: 1px;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.fdesc-links a:hover,
+.foro-subforums a:hover {
+  border-color: var(--color-1);
+  color: var(--color-1) !important;
+}
+
+.foro-right {
+  min-width: 0;
+  padding: 18px;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  gap: 12px;
+  overflow: hidden;
+  background: var(--fondo-3);
+  border-left: var(--borde);
+}
+
+.foro-stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.foro-stats div {
+  min-height: 52px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  background: var(--fondo-2);
+  border: var(--borde);
+  color: var(--texto);
+  font-size: 8px;
+  font-weight: 900;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.foro-stats div::before {
+  color: var(--color-1);
+  font-size: 15px;
+}
+
+.f-temas::before {
+  content: "T";
+}
+
+.f-posts::before {
+  content: "M";
+}
+
+.foro-stats em,
+.foro-stats esp {
+  display: none;
+}
+
+.foro-last {
+  min-height: 70px;
+  padding: 7px;
+  display: grid;
+  grid-template-columns: 56px minmax(0, 1fr);
+  gap: 10px;
+  overflow: hidden;
+  background: var(--fondo-2);
+  border: var(--borde);
+}
+
+.avatar-lastpost,
+.avatar-lastpost img {
+  width: 56px !important;
+  height: 56px !important;
+}
+
+.avatar-lastpost {
+  overflow: hidden;
+  background: var(--fondo-3);
+  border: var(--borde);
+}
+
+.avatar-lastpost img {
+  display: block;
+  object-fit: cover;
+  filter: grayscale(1);
+  opacity: 0.78;
+}
+
+.foro-last span {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  overflow: hidden;
+  color: var(--color-1);
+  font-size: 8px;
+  font-weight: 900;
+  letter-spacing: 0.7px;
+  line-height: 1.2;
+  text-transform: uppercase;
+}
+
+.foro-last a {
+  display: block;
+  max-width: 100%;
+  overflow: hidden;
+  color: var(--texto) !important;
+  font-size: 10px;
+  font-weight: 900;
+  line-height: 1.15;
+  text-overflow: ellipsis;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+/* =========================================================
+   5B. ESTADISTICAS Y GRUPOS DEL INDICE
+   ========================================================= */
+
+.xoxo-stats,
+.estadisticas {
+  margin: 28px 0;
+  display: grid;
+  grid-template-columns: 72px minmax(0, 1fr) 280px;
+  gap: 0;
+  background: var(--fondo-2);
+  border: var(--borde);
+  color: var(--texto);
+}
+
+.es-links {
+  padding: 10px;
+  display: grid;
+  gap: 8px;
+  align-content: start;
+  background: var(--fondo-3);
+  border-right: var(--borde);
+}
+
+.es-links a {
+  width: 36px;
+  height: 36px;
+  display: grid;
+  place-items: center;
+  background: var(--fondo-2);
+  border: var(--borde);
+  color: var(--texto) !important;
+  font-size: 15px;
+}
+
+.es-links a:hover {
+  border-color: var(--color-1);
+  color: var(--color-1) !important;
+}
+
+.es-medio {
+  min-width: 0;
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr);
+}
+
+.esm-1 {
+  padding: 14px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 150px 150px;
+  gap: 10px;
+  border-bottom: var(--borde);
+}
+
+.est-new {
+  min-width: 0;
+  display: grid;
+  grid-template-columns: 54px minmax(0, 1fr);
+  gap: 10px;
+  align-items: center;
+}
+
+.newest-ava {
+  width: 54px;
+  height: 54px;
+  overflow: hidden;
+  background: var(--fondo-3);
+  border: var(--borde);
+}
+
+.newest-ava img {
+  width: 54px !important;
+  height: 54px !important;
+  display: block;
+  object-fit: cover;
+  filter: grayscale(1);
+}
+
+.newest-user,
+.est-00 {
+  min-width: 0;
+  padding: 10px;
+  display: grid;
+  align-content: center;
+  background: var(--fondo-3);
+  border: var(--borde);
+  color: var(--texto-suave);
+  font-size: 10px;
+  font-weight: 900;
+  line-height: 1.25;
+  text-transform: uppercase;
+}
+
+.newest-user a,
+.est-00 strong {
+  color: var(--color-1) !important;
+}
+
+.est-00 {
+  text-align: center;
+}
+
+.esm-2 {
+  min-width: 0;
+  padding: 14px;
+}
+
+.esm2-online {
+  max-height: 120px;
+  overflow: auto;
+  padding: 12px;
+  background: var(--fondo-3);
+  border: var(--borde);
+  color: var(--texto-suave);
+  font-size: 11px;
+  line-height: 1.55;
+}
+
+.es-right {
+  min-width: 0;
+  padding: 14px;
+  background: var(--fondo-3);
+  border-left: var(--borde);
+}
+
+.esr-envo {
+  height: 100%;
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr);
+  background: var(--fondo-2);
+  border: var(--borde);
+}
+
+.esr-titu {
+  padding: 10px;
+  border-bottom: var(--borde);
+  color: var(--color-1);
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 1px;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.esr-last24 {
+  min-height: 0;
+  max-height: 170px;
+  overflow: auto;
+  padding: 12px;
+  color: var(--texto-suave);
+  font-size: 11px;
+  line-height: 1.55;
+}
+
+.xoxo-groups,
+.gruposforo {
+  margin: 18px 0 28px;
+  padding: 12px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+  background: var(--fondo-2);
+  border: var(--borde);
+}
+
+.grupoforo {
+  min-height: 34px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 12px;
+  background: var(--fondo-3);
+  border: var(--borde);
+  color: var(--texto) !important;
+  font-size: 9px;
+  font-weight: 900;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.grupoforo:hover {
+  border-color: var(--colorgruposleyenda, var(--color-1));
+  color: var(--colorgruposleyenda, var(--color-1)) !important;
+}
+
+.miembros-grupo {
+  min-width: 22px;
+  height: 22px;
+  display: inline-grid;
+  place-items: center;
+  background: var(--fondo-2);
+  border: var(--borde);
+  color: var(--colorgruposleyenda, var(--color-1));
+}
+
+.xoxo-login-form,
+.loginllt {
+  max-width: 100%;
+}
+
+.xoxo-login-form {
+  margin: 24px 0;
+}
+
+.loginllt {
+  padding: 14px;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+  align-items: end;
+  background: var(--fondo-2);
+  border: var(--borde);
+}
+
+.loginllt label {
+  min-width: 0;
+  display: grid;
+  gap: 6px;
+  color: var(--texto-suave);
+  font-size: 9px;
+  font-weight: 900;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.loginllt em {
+  color: var(--color-1);
+  font-style: normal;
+}
+
+/* =========================================================
+   6. SUBFOROS Y LISTA DE TEMAS
+   ========================================================= */
+
+ul.topiclist.topics,
+.forumbg,
+.topiclist {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+li.row,
+.topic-row,
+.rowt1,
+.search.post.row1 {
+  margin: 10px 0;
+  padding: 12px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 120px 180px;
+  gap: 10px;
+  align-items: center;
+  background: var(--fondo-3);
+  border: var(--borde);
+  color: var(--texto);
+}
+
+li.row:hover,
+.topic-row:hover,
+.rowt1:hover {
+  border-color: rgba(204, 186, 217, 0.62);
+}
+
+a.topictitle,
+.rowt1-1-1 a {
+  color: var(--texto) !important;
+  font-size: 18px;
+  font-weight: 900;
+  line-height: 1.1;
+  text-transform: lowercase;
+}
+
+a.topictitle:hover,
+.rowt1-1-1 a:hover {
+  color: var(--color-1) !important;
+}
+
+.topics,
+.posts,
+.lastpost {
+  color: var(--texto-suave);
+  font-size: 10px;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+/* Botones y herramientas dentro de un subforo. */
+.xoxo-forum-title {
+  margin-top: 0;
+}
+
+.nav-botones,
+.xoxo-forum-actions {
+  margin: 0 0 18px;
+  padding: 12px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 12px;
+  align-items: center;
+  background: var(--fondo-2);
+  border: var(--borde);
+}
+
+.nbot-1,
+.nbot-2 {
+  min-width: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+
+.nbot-2 {
+  justify-content: flex-end;
+}
+
+.nbot-1 a,
+.nbot-1 input,
+.nbot-1 span,
+.pages-list a,
+.pages-list strong,
+.pagination a,
+.pagination span,
+.pagination strong {
+  min-height: 30px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 11px;
+  background: var(--fondo-3);
+  border: var(--borde);
+  color: var(--texto) !important;
+  font-size: 9px;
+  font-weight: 900;
+  letter-spacing: 1px;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.nbot-1 a:hover,
+.pages-list a:hover,
+.pagination a:hover {
+  border-color: var(--color-1);
+  color: var(--color-1) !important;
+}
+
+.xoxo-topic-list {
+  margin: 0 0 18px;
+}
+
+.action-box,
+.xoxo-forum-tools {
+  margin: 18px 0;
+  padding: 12px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 12px;
+  background: var(--fondo-2);
+  border: var(--borde);
+}
+
+.xoxo-forum-tools fieldset,
+.sort-form fieldset,
+.vf_jumpbox {
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+  border: 0;
+}
+
+.xoxo-forum-tools label {
+  color: var(--texto-suave);
+  font-size: 9px;
+  font-weight: 900;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+/* =========================================================
+   7. POSTS: INTERIOR DE LOS TEMAS
+   ========================================================= */
+
+.post,
+.envopost {
+  width: 100%;
+  margin: 18px 0;
+  display: grid;
+  grid-template-columns: 260px minmax(0, 1fr);
+  gap: 0;
+  background: var(--fondo-2);
+  border: var(--borde);
+  color: var(--texto);
+}
+
+.post {
+  display: block;
+}
+
+.post .inner {
+  display: block;
+}
+
+.post-hidden {
+  padding: 18px;
+  text-align: center;
+}
+
+.headpost {
+  padding: 16px 18px;
+  background: var(--gradient-1);
+  border-bottom: var(--borde);
+}
+
+.head1-post {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: end;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.name-post {
+  color: var(--texto);
+  font-family: var(--fuente-titulo);
+  font-size: clamp(26px, 4vw, 42px);
+  font-weight: 900;
+  line-height: 0.95;
+  text-transform: uppercase;
+}
+
+.name-post a,
+.name-post span {
+  color: inherit !important;
+}
+
+.rango-post {
+  color: rgba(255, 255, 255, 0.82);
+  font-size: 9px;
+  font-weight: 900;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.post-perfil,
+.postprofile {
+  min-width: 0;
+  padding: 18px;
+  background: var(--fondo-3);
+  border-right: var(--borde);
+  text-align: center;
+}
+
+.perfilt-contacto {
+  margin: 0 0 12px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  justify-content: center;
+}
+
+.perfilt-contacto a,
+.perfilt-contacto img {
+  max-width: 28px;
+  max-height: 28px;
+}
+
+.perfilt {
+  position: relative;
+  width: 100%;
+  max-width: 220px;
+  margin: 0 auto;
+  padding: 8px;
+  background: var(--fondo-2);
+  border: var(--borde);
+}
+
+.perfil-adorno {
+  position: absolute;
+  inset: 8px;
+  border: var(--borde-claro);
+  opacity: 0.22;
+  pointer-events: none;
+}
+
+.perfilt0 {
+  position: relative;
+  overflow: hidden;
+}
+
+.perfilt-avatar img {
+  width: 100%;
+  display: block;
+  object-fit: cover;
+  filter: grayscale(1) contrast(1.04);
+}
+
+.perfilt-oculto {
+  max-height: 190px;
+  overflow: auto;
+  margin-top: 10px;
+  padding: 10px;
+  background: var(--fondo-3);
+  border: var(--borde);
+}
+
+.campo-p {
+  padding: 7px 0;
+  border-bottom: var(--borde);
+  text-align: left;
+}
+
+.campo-p:last-child {
+  border-bottom: 0;
+}
+
+.campp-label {
+  color: var(--color-1);
+  font-size: 9px;
+  font-weight: 900;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.campp-cont {
+  color: var(--texto-suave);
+  font-size: 11px;
+  line-height: 1.35;
+}
+
+.post-perfil img,
+.postprofile img {
+  max-width: 100%;
+  height: auto;
+}
+
+.post-post,
+.postbody {
+  min-width: 0;
+  padding: 18px;
+  overflow: hidden;
+}
+
+.post-up {
+  margin: 0 0 14px;
+  padding-bottom: 12px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 10px;
+  border-bottom: var(--borde);
+}
+
+.postu-link a,
+.postbody h3,
+.postbody h3 a {
+  color: var(--color-1) !important;
+  font-size: 18px;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.postu-fecha,
+.postdetails {
+  color: var(--texto-mudo);
+  font-size: 10px;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.postu-botones {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  justify-content: flex-end;
+}
+
+.postu-botones a,
+.postu-botones img,
+.postu-link a {
+  max-height: 28px;
+}
+
+.postu-link a,
+.postu-botones a {
+  min-width: 28px;
+  height: 28px;
+  display: inline-grid;
+  place-items: center;
+  background: var(--fondo-3);
+  border: var(--borde);
+  color: var(--texto) !important;
+}
+
+.postu-link a:hover,
+.postu-botones a:hover {
+  border-color: var(--color-1);
+  color: var(--color-1) !important;
+}
+
+.post-contenido,
+.content {
+  min-width: 0;
+  max-width: 100%;
+  overflow-wrap: break-word;
+  color: var(--texto);
+  font-size: 13px;
+  line-height: 1.65;
+}
+
+.post-contenido img,
+.post-contenido iframe,
+.post-contenido table,
+.content img,
+.content iframe,
+.content table {
+  max-width: 100% !important;
+}
+
+.signature,
+.firma,
+.postc-firma {
+  margin-top: 18px;
+  padding-top: 14px;
+  border-top: var(--borde);
+  color: var(--texto-suave);
+}
+
+.postc-edits {
+  margin-top: 12px;
+  color: var(--texto-mudo);
+  font-size: 10px;
+}
+
+.xoxo-promoted,
+.xoxo-rules,
+.xoxo-quickreply,
+.xoxo-topic-tools,
+.xoxo-permissions {
+  margin: 18px 0;
+  padding: 14px;
+  background: var(--fondo-2);
+  border: var(--borde);
+}
+
+.xoxo-promoted {
+  display: block;
+}
+
+.xoxo-rules .h3,
+.xoxo-permissions .h3 {
+  margin: 0 0 12px;
+  color: var(--color-1);
+  font-family: var(--fuente-titulo);
+  font-size: 22px;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.cajatextopost textarea,
+.xoxo-quickreply textarea {
+  min-height: 210px;
+}
+
+.xoxo-topic-tools {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 12px;
+}
+
+.jumpbox,
+.quickmod {
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+  border: 0;
+}
+
+.jumpbox label,
+.quickmod label {
+  color: var(--texto-suave);
+  font-size: 9px;
+  font-weight: 900;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.adminstuff {
+  grid-column: 1 / -1;
+  color: var(--texto-suave);
+}
+
+/* =========================================================
+   8. FORMULARIOS Y EDITOR
+   ========================================================= */
+
+input,
+textarea,
+select,
+button {
+  max-width: 100%;
+  font-family: var(--fuente-base);
+}
+
+input[type="text"],
+input[type="password"],
+input[type="email"],
+textarea,
+select,
+.inputbox {
+  width: 100%;
+  padding: 9px 10px;
+  background: var(--fondo-3);
+  border: var(--borde);
+  color: var(--texto);
+}
+
+textarea {
+  min-height: 160px;
+  resize: vertical;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  outline: 1px solid var(--color-1);
+}
+
+button,
+input[type="submit"],
+input[type="button"],
+.button,
+.button1,
+.button2,
+a.button1,
+a.button2,
+.buttons a {
+  min-height: 32px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 13px;
+  background: var(--fondo-3);
+  border: var(--borde);
+  color: var(--texto) !important;
+  font-size: 9px;
+  font-weight: 900;
+  letter-spacing: 1px;
+  line-height: 1;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+button:hover,
+input[type="submit"]:hover,
+input[type="button"]:hover,
+.button:hover,
+.button1:hover,
+.button2:hover,
+a.button1:hover,
+a.button2:hover,
+.buttons a:hover {
+  border-color: var(--color-1);
+  color: var(--color-1) !important;
+}
+
+/* =========================================================
+   9. MENSAJES PRIVADOS
+   Esta parte ordena la bandeja de entrada, enviados y lectura.
+   ========================================================= */
+
+.pmlist,
+#privmsgs-menu,
+form[action*="privmsg"],
+form[action*="privmsgs"],
+form[name="privmsg_list"],
+.pm-actions,
+.pm-body {
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+.pmlist,
+form[name="privmsg_list"],
+form[action*="privmsg"],
+form[action*="privmsgs"] {
+  margin: 20px auto;
+  padding: 14px;
+  background: var(--fondo-2);
+  border: var(--borde);
+  color: var(--texto);
+}
+
+.mps-bandeja {
+  width: fit-content;
+  max-width: calc(100% - 24px);
+  margin: 28px auto 18px;
+  padding: 14px 18px;
+  background: var(--gradient-1);
+  border: var(--borde);
+  color: var(--texto);
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 1px;
+  line-height: 1.25;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.menu-mps {
+  margin: 20px 0;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  background: var(--fondo-3);
+  border: var(--borde);
+}
+
+.menu-mps div {
+  min-width: 0;
+  border-right: var(--borde);
+}
+
+.menu-mps div:last-child {
+  border-right: 0;
+}
+
+.menu-mps a {
+  min-height: 46px;
+  padding: 8px 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--texto) !important;
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: 1px;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.menu-mps a:hover {
+  color: var(--color-1) !important;
+}
+
+.xoxo-privmsgs {
+  margin: 0 0 24px;
+}
+
+.xoxo-pm-actions-top,
+.xoxo-pm-actions-bottom,
+.xoxo-pm-filter,
+.xoxo-pm-pagination,
+.marki {
+  margin: 14px 0;
+  padding: 12px;
+  background: var(--fondo-2);
+  border: var(--borde);
+}
+
+.xoxo-pm-filter .right-box {
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.xoxo-pm-filter label {
+  color: var(--texto-suave);
+  font-size: 9px;
+  font-weight: 900;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.xoxo-pm-list {
+  margin: 14px 0 !important;
+}
+
+.pmlist {
+  display: grid;
+  gap: 10px;
+}
+
+.pmlist .row.row1,
+.pmlist .row.row2,
+.pmlist li.row {
+  margin: 0;
+  padding: 10px;
+  display: block;
+  background: var(--fondo-2);
+  border: var(--borde);
+}
+
+.pmlist dl.icon {
+  min-height: 58px;
+  margin: 0;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 42px;
+  gap: 10px;
+  align-items: center;
+}
+
+.pmlist dt {
+  min-width: 0;
+  display: grid;
+  grid-template-columns: 26px minmax(0, 1fr);
+  gap: 6px 10px;
+  align-items: center;
+}
+
+.pm-icon {
+  grid-row: 1 / span 2;
+  width: 26px;
+  height: 26px;
+  display: grid;
+  place-items: center;
+}
+
+.titlemp {
+  min-width: 0;
+  display: block;
+  color: var(--texto) !important;
+  font-size: 14px;
+  font-weight: 900;
+  line-height: 1.2;
+  text-transform: uppercase;
+  overflow-wrap: anywhere;
+}
+
+.titlemp:hover {
+  color: var(--color-1) !important;
+}
+
+.mp-cosas {
+  min-width: 0;
+  display: block;
+  color: var(--texto-mudo);
+  font-size: 10px;
+  font-weight: 900;
+  line-height: 1.25;
+  text-transform: uppercase;
+}
+
+.mp-cosas i {
+  margin-left: 8px;
+  color: var(--texto-suave);
+  font-style: normal;
+}
+
+.pmlist .mark {
+  display: grid;
+  place-items: center;
+}
+
+.marki {
+  margin: 14px 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: flex-end;
+}
+
+.marki a {
+  min-height: 30px;
+  padding: 0 11px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--fondo-3);
+  border: var(--borde);
+  color: var(--texto) !important;
+  font-size: 9px;
+  font-weight: 900;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.marki a:hover {
+  border-color: var(--color-1);
+  color: var(--color-1) !important;
+}
+
+.xoxo-pm-pagination {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.xoxo-pm-actions-bottom {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 12px;
+  align-items: center;
+}
+
+.xoxo-pm-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: flex-end;
+}
+
+#privmsgs-menu,
+.privmsgs-menu,
+.pm-menu {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+  margin: 0 0 14px;
+  padding: 10px;
+  background: var(--fondo-3);
+  border: var(--borde);
+  list-style: none;
+}
+
+#privmsgs-menu li,
+.privmsgs-menu li,
+.pm-menu li {
+  display: block;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+#privmsgs-menu a,
+.privmsgs-menu a,
+.pm-menu a {
+  min-height: 30px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 12px;
+  background: var(--fondo-2);
+  border: var(--borde);
+  color: var(--texto) !important;
+  font-size: 9px;
+  font-weight: 900;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.pmlist table,
+form[name="privmsg_list"] table,
+form[action*="privmsg"] table,
+form[action*="privmsgs"] table,
+table.table1 {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--fondo-3);
+  border: var(--borde);
+}
+
+.pmlist th,
+.pmlist td,
+form[name="privmsg_list"] th,
+form[name="privmsg_list"] td,
+form[action*="privmsg"] th,
+form[action*="privmsg"] td,
+form[action*="privmsgs"] th,
+form[action*="privmsgs"] td,
+table.table1 th,
+table.table1 td {
+  padding: 10px;
+  background: transparent;
+  border: var(--borde);
+  color: var(--texto);
+  vertical-align: middle;
+}
+
+.pmlist th,
+form[name="privmsg_list"] th,
+form[action*="privmsg"] th,
+form[action*="privmsgs"] th,
+table.table1 th {
+  background: var(--fondo-2);
+  color: var(--color-1);
+  font-size: 9px;
+  font-weight: 900;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+/* =========================================================
+   9B. FOOTER Y AFILIADOS
+   ========================================================= */
+
+.xoxo-footer {
+  margin: 32px 0 0;
+  background: var(--fondo-2);
+  border-top: var(--borde);
+  color: var(--texto);
+}
+
+#grupos-footer,
+.gruposforo {
+  min-height: 0;
+}
+
+.xoxo-afiliados {
+  display: grid;
+  grid-template-columns: 320px 120px minmax(0, 1fr);
+  gap: 0;
+  border-bottom: var(--borde);
+}
+
+.xoxo-af-credit,
+.xoxo-af-hermanos,
+.xoxo-af-elite {
+  min-width: 0;
+  padding: 16px;
+  background: var(--fondo-3);
+}
+
+.xoxo-af-credit,
+.xoxo-af-hermanos {
+  border-right: var(--borde);
+}
+
+.xoxo-skin-credit {
+  display: grid;
+  grid-template-columns: 88px minmax(0, 1fr);
+  gap: 12px;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.xoxo-skin-credit img {
+  width: 88px;
+  height: auto;
+  display: block;
+  filter: grayscale(1);
+  opacity: 0.78;
+}
+
+.xoxo-skin-credit span {
+  color: var(--color-1);
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.xoxo-af-credit p {
+  margin: 0;
+  color: var(--texto-suave);
+  font-size: 11px;
+  line-height: 1.55;
+  text-align: justify;
+}
+
+.xoxo-af-credit a {
+  color: var(--color-1) !important;
+}
+
+.xoxo-af-hermanos {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 8px;
+  align-content: start;
+}
+
+.xoxo-af-hermanos a,
+.xoxo-af-elite a {
+  display: block;
+  overflow: hidden;
+  background: var(--fondo-2);
+  border: var(--borde);
+}
+
+.xoxo-af-hermanos img {
+  width: 100px;
+  height: 50px;
+  display: block;
+  object-fit: cover;
+}
+
+.xoxo-af-elite {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(50px, 50px));
+  gap: 8px;
+  align-content: start;
+}
+
+.xoxo-af-elite img {
+  width: 50px;
+  height: 50px;
+  display: block;
+  object-fit: cover;
+}
+
+.xoxo-af-hermanos a:hover,
+.xoxo-af-elite a:hover {
+  border-color: var(--color-1);
+}
+
+.xoxo-footer-nav {
+  padding: 10px;
+  background: var(--fondo-3);
+}
+
+.xoxo-footer-nav ul {
+  margin: 0 !important;
+}
+
+#page-footer {
+  padding: 16px;
+  background: var(--fondo-3);
+  border-top: var(--borde);
+  color: var(--texto-mudo);
+  text-align: center;
+  font-size: 10px;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+#page-footer a {
+  color: var(--color-1) !important;
+}
+
+/* =========================================================
+   10. RESPONSIVE
+   Aqui el foro aprende a hacerse chiquito sin romperse.
+   ========================================================= */
+
+@media (max-width: 900px) {
+  #wrap,
+  .wrap {
+    width: calc(100vw - 18px);
+    max-width: calc(100vw - 18px);
+    padding-top: 8px !important;
+    outline: 0;
+  }
+
+  .newlogo,
+  .headerbar,
+  #logo-desc,
+  #pun-title {
+    min-height: 320px;
+  }
+
+  .ms-top,
+  .ms-body,
+  .ms-center,
+  .ms-center-bottom,
+  .ms-bottom,
+  .xoxo-afiliados,
+  .xoxo-stats,
+  .estadisticas,
+  .esm-1,
+  .loginllt {
+    grid-template-columns: 1fr;
+  }
+
+  .nav-botones,
+  .xoxo-forum-actions,
+  .action-box,
+  .xoxo-forum-tools,
+  .xoxo-topic-tools {
+    grid-template-columns: 1fr;
+  }
+
+  .nbot-1,
+  .nbot-2 {
+    justify-content: center;
+  }
+
+  .ms-top,
+  .ms-body,
+  .ms-center-bottom {
+    display: grid;
+  }
+
+  .ms-brand,
+  .ms-access-mini,
+  .ms-left,
+  .ms-right,
+  .ms-searches,
+  .ms-plot-img,
+  .ms-bottom-box,
+  .xoxo-af-credit,
+  .xoxo-af-hermanos,
+  .es-links,
+  .es-right {
+    border-right: 0;
+  }
+
+  .ms-brand,
+  .ms-nav,
+  .ms-access-mini,
+  .ms-left,
+  .ms-right,
+  .ms-searches,
+  .ms-mini-card,
+  .ms-bottom-box,
+  .xoxo-af-credit,
+  .xoxo-af-hermanos,
+  .es-links {
+    border-bottom: var(--borde);
+  }
+
+  .es-links {
+    grid-template-columns: repeat(6, 36px);
+    justify-content: center;
+  }
+
+  .es-right {
+    border-left: 0;
+    border-top: var(--borde);
+  }
+
+  .ms-body {
+    min-height: 0;
+  }
+
+  .ms-center {
+    grid-template-rows: auto auto;
+  }
+
+  .ms-plot {
+    grid-template-columns: 1fr;
+  }
+
+  .ms-plot-img {
+    min-height: 210px;
+    border-bottom: var(--borde);
+  }
+
+  .ms-center-bottom {
+    grid-template-columns: 1fr;
+  }
+
+  .ms-bottom-box:last-child {
+    border-bottom: 0;
+  }
+
+  .categoria {
+    min-height: 82px;
+    padding: 18px;
+    gap: 14px;
+  }
+
+  .categoria::before {
+    width: 44px;
+    height: 44px;
+    flex-basis: 44px;
+  }
+
+  .categoria::after {
+    left: 35px;
+    font-size: 22px;
+  }
+
+  .foro-index {
+    min-height: 0;
+    grid-template-columns: 1fr;
+    overflow: visible;
+  }
+
+  .foro-left {
+    min-height: 170px;
+    border-right: 0;
+    border-bottom: var(--borde);
+  }
+
+  .foro-middle {
+    padding: 18px;
+  }
+
+  .foro-desc {
+    overflow: visible;
+    text-align: left;
+  }
+
+  .foro-right {
+    padding: 14px;
+    border-left: 0;
+    border-top: var(--borde);
+  }
+
+  li.row,
+  .topic-row,
+  .rowt1,
+  .search.post.row1 {
+    grid-template-columns: 1fr;
+  }
+
+  .post,
+  .envopost {
+    grid-template-columns: 170px minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  #wrap,
+  .wrap {
+    width: calc(100vw - 10px);
+    max-width: calc(100vw - 10px);
+  }
+
+  .newlogo,
+  .headerbar,
+  #logo-desc,
+  #pun-title {
+    min-height: 240px;
+  }
+
+  .ms-brand {
+    grid-template-columns: 38px minmax(0, 1fr);
+    padding: 12px;
+  }
+
+  .ms-brand-mark {
+    width: 38px;
+    height: 38px;
+  }
+
+  .ms-nav {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .ms-nav a {
+    width: 100%;
+  }
+
+  .ms-plot-text,
+  .ms-latest,
+  .ms-calendar,
+  .ms-staff,
+  .ms-searches,
+  .ms-mini-card {
+    padding: 14px;
+  }
+
+  .ms-plot-title {
+    font-size: 28px;
+  }
+
+  .ms-search-slider {
+    height: 170px;
+    grid-template-columns: 28px minmax(0, 1fr) 28px;
+  }
+
+  .ms-staff-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .xoxo-skin-credit {
+    grid-template-columns: 1fr;
+  }
+
+  .xoxo-af-hermanos {
+    justify-items: start;
+  }
+
+  .titulo-foro,
+  .headerbar h1,
+  #logo-desc h1,
+  #pun-title h1 {
+    font-size: clamp(40px, 16vw, 72px);
+  }
+
+  .foro-stats {
+    grid-template-columns: 1fr;
+  }
+
+  .foro-last {
+    grid-template-columns: 46px minmax(0, 1fr);
+  }
+
+  .avatar-lastpost,
+  .avatar-lastpost img {
+    width: 46px !important;
+    height: 46px !important;
+  }
+
+  .fdesc-links,
+  .foro-subforums {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .fdesc-links a,
+  .foro-subforums a {
+    width: 100%;
+  }
+
+  .post,
+  .envopost {
+    grid-template-columns: 1fr;
+  }
+
+  .head1-post,
+  .post-up {
+    justify-content: center;
+    text-align: center;
+  }
+
+  .postu-botones {
+    justify-content: center;
+  }
+
+  .post-perfil,
+  .postprofile {
+    border-right: 0;
+    border-bottom: var(--borde);
+  }
+
+  /* En celular, los mensajes privados dejan de ser tabla aplastada y parecen tarjetas. */
+  .pmlist table,
+  .pmlist thead,
+  .pmlist tbody,
+  .pmlist tr,
+  .pmlist th,
+  .pmlist td,
+  form[name="privmsg_list"] table,
+  form[name="privmsg_list"] thead,
+  form[name="privmsg_list"] tbody,
+  form[name="privmsg_list"] tr,
+  form[name="privmsg_list"] th,
+  form[name="privmsg_list"] td,
+  form[action*="privmsg"] table,
+  form[action*="privmsg"] thead,
+  form[action*="privmsg"] tbody,
+  form[action*="privmsg"] tr,
+  form[action*="privmsg"] th,
+  form[action*="privmsg"] td,
+  form[action*="privmsgs"] table,
+  form[action*="privmsgs"] thead,
+  form[action*="privmsgs"] tbody,
+  form[action*="privmsgs"] tr,
+  form[action*="privmsgs"] th,
+  form[action*="privmsgs"] td {
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .pmlist thead,
+  form[name="privmsg_list"] thead,
+  form[action*="privmsg"] thead,
+  form[action*="privmsgs"] thead {
+    display: none;
+  }
+
+  .pmlist tr,
+  form[name="privmsg_list"] tr,
+  form[action*="privmsg"] tr,
+  form[action*="privmsgs"] tr {
+    margin: 0 0 10px;
+    padding: 10px;
+    background: var(--fondo-3);
+    border: var(--borde);
+  }
+
+  .pmlist td,
+  form[name="privmsg_list"] td,
+  form[action*="privmsg"] td,
+  form[action*="privmsgs"] td {
+    padding: 7px 0;
+    border: 0;
+    border-bottom: var(--borde);
+    text-align: left;
+  }
+
+  .pmlist td:last-child,
+  form[name="privmsg_list"] td:last-child,
+  form[action*="privmsg"] td:last-child,
+  form[action*="privmsgs"] td:last-child {
+    border-bottom: 0;
+  }
+
+  .menu-mps {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .menu-mps div:nth-child(2n) {
+    border-right: 0;
+  }
+
+  .menu-mps div:nth-child(-n + 2) {
+    border-bottom: var(--borde);
+  }
+
+  .xoxo-pm-filter .right-box,
+  .marki,
+  .xoxo-pm-pagination,
+  .xoxo-pm-buttons {
+    justify-content: center;
+  }
+
+  .xoxo-pm-actions-bottom {
+    grid-template-columns: 1fr;
+  }
+
+  .pmlist dl.icon,
+  .pmlist dt {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+
+  .pm-icon {
+    grid-row: auto;
+    margin: 0 auto;
+  }
+
+  .mp-cosas i {
+    display: block;
+    margin-left: 0;
+    margin-top: 4px;
+  }
+}
